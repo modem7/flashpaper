@@ -1,6 +1,10 @@
 # FlashPaper
 A one-time encrypted zero-knowledge password/secret sharing application focused on simplicity and security. No database or complicated set-up required.
 
+![Docker Pulls](https://img.shields.io/docker/pulls/modem7/flashpaper) 
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/modem7/flashpaper/latest)
+[![Build Status](https://drone.modem7.com/api/badges/modem7/flashpaper/status.svg)](https://drone.modem7.com/modem7/flashpaper)
+
 ## Demo
 
 https://flashpaper.io
@@ -10,16 +14,39 @@ https://flashpaper.io
 ## Installation
 
 ### Docker *(Recommended)*
-  1. Download and extract the [latest release](https://github.com/AndrewPaglusch/FlashPaper/releases/latest) of FlashPaper
-  2. Edit the `docker-compose.yml` file with your customizations
-  3. Run `docker-compose up -d` to start FlashPaper
-  4. Set up a reverse-proxy in front of FlashPaper that terminates SSL/TLS
 
-### Traditional
-  **Requirements:** PHP 7.0+ and a web server
-  1. Download and extract the [latest release](https://github.com/AndrewPaglusch/FlashPaper/releases/latest) of FlashPaper to the document root of your web server
-  2. Copy `settings.example.php` to `settings.php` and make customizations to that file
-  3. Disable access logging in your web server's configuration so nothing sensitive (IP addresses, user agent strings, timestamps, etc) are logged to disk
+[DockerHub](https://hub.docker.com/r/modem7/flashpaper)
+
+```yaml
+version: "2.4"
+services:
+  flashpaper:
+    image: modem7/flashpaper
+    container_name: Flashpaper
+    restart: always
+    volumes:
+      - $USERDIR/Flashpaper:/var/www/html/data
+    ports:
+      - '8080:80'
+    environment:
+      SITE_TITLE: "FlashPaper :: Self-Destructing Message"
+      RETURN_FULL_URL: "true"
+      MAX_SECRET_LENGTH: "3000"
+      ANNOUNCEMENT: ""
+      MESSAGES_ERROR_SECRET_TOO_LONG: "Input length too long"
+      MESSAGES_SUBMIT_SECRET_HEADER: "Create A Self-Destructing Message"
+      MESSAGES_SUBMIT_SECRET_SUBHEADER: ""
+      MESSAGES_SUBMIT_SECRET_BUTTON: "Encrypt Message"
+      MESSAGES_VIEW_CODE_HEADER: "Self-Destructing URL"
+      MESSAGES_VIEW_CODE_SUBHEADER: "Share this URL via email, chat, or another messaging service. It will self-destruct after being viewed once."
+      MESSAGES_CONFIRM_VIEW_SECRET_HEADER: "View this secret?"
+      MESSAGES_CONFIRM_VIEW_SECRET_BUTTON: "View Secret"
+      MESSAGES_VIEW_SECRET_HEADER: "Self-Destructing Message"
+      MESSAGES_VIEW_SECRET_SUBHEADER: "This message has been destroyed"
+      PRUNE_ENABLED: "true"
+      PRUNE_MIN_DAYS: 30
+      PRUNE_MAX_DAYS: 60
+```
 
 ## How It Works
 ### Submitting Secret
@@ -51,11 +78,3 @@ https://flashpaper.io
 ### `prune`:
  - `enabled`: Turn on/off auto-pruning of old secrets from the database upon page load
  - `min_days`/`max_days`: When a secret is submitted, a random date/time is generated between `min_days` and `max_days` in the future. After that date/time has elapsed, the secret will be pruned from the database if `enabled` is set to `true`. This is to prevent your database from being filled with secrets that are never retrieved. NOTE: Even if `enabled` is set to `false`, the prune value will still be generated and stored in the database, but secrets will not be pruned unless `enabled` is switched to `true`.
-
-## Donations
-
-PayPal: https://paypal.me/AndrewPaglusch
-
-BitCoin: 1EYDa33S14ejuQGMhSjtBUmBHTBB8mbTRs
-
-Donations are not expected, but they are very appreciated!
