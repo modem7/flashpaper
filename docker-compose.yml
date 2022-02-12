@@ -1,13 +1,11 @@
-version: "3.5"
+version: "2.4"
 services:
   flashpaper:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
-    container_name: flashpaper
+    image: modem7/flashpaper
+    container_name: Flashpaper
     restart: always
     volumes:
-      - './data:/var/www/html/data'
+      - $USERDIR/Flashpaper:/var/www/html/data
     ports:
       - '8080:80'
     environment:
@@ -24,8 +22,8 @@ services:
       MESSAGES_CONFIRM_VIEW_SECRET_HEADER: "View this secret?"
       MESSAGES_CONFIRM_VIEW_SECRET_BUTTON: "View Secret"
       MESSAGES_VIEW_SECRET_HEADER: "Self-Destructing Message"
-      MESSAGES_VIEW_SECRET_HEADER: "This message has been destroyed"
+      MESSAGES_VIEW_SECRET_SUBHEADER: "This message has been destroyed"
       PRUNE_ENABLED: "true"
-      PRUNE_MIN_DAYS: 365
-      PRUNE_MAX_DAYS: 730
+      PRUNE_MIN_DAYS: 30
+      PRUNE_MAX_DAYS: 60
       
