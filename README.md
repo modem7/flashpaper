@@ -4,6 +4,7 @@ A one-time encrypted zero-knowledge password/secret sharing application focused 
 ![Docker Pulls](https://img.shields.io/docker/pulls/modem7/flashpaper) 
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/modem7/flashpaper/latest)
 [![Build Status](https://drone.modem7.com/api/badges/modem7/flashpaper/status.svg)](https://drone.modem7.com/modem7/flashpaper)
+[![GitHub last commit](https://img.shields.io/github/last-commit/modem7/flashpaper)](https://github.com/modem7/flashpaper)
 
 ## Demo
 
