@@ -1,6 +1,17 @@
 FROM alpine:3.15
 
-RUN apk add --no-cache gettext curl nginx php7 php7-fpm php7-opcache php7-pdo php7-pdo_sqlite php7-openssl && \
+ARG PHP_VERS=7.4.29-r0
+
+RUN apk add --no-cache \
+        gettext=0.21-r0 \
+        curl=7.80.0-r1 \
+        nginx=1.20.2-r1 \
+        php7=$PHP_VERS \
+        php7-fpm=$PHP_VERS \
+        php7-opcache=$PHP_VERS \
+        php7-pdo=$PHP_VERS \
+        php7-pdo_sqlite=$PHP_VERS \
+        php7-openssl=$PHP_VERS && \
     mkdir /var/www/html
 
 COPY . /var/www/html
