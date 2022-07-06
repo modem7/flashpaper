@@ -20,3 +20,4 @@ RUN mkdir -p /var/run/nginx && \
     chmod +x /entrypoint.sh
 VOLUME /var/www/html/data
 ENTRYPOINT ["/bin/ash", "/entrypoint.sh"]
+
