@@ -1,17 +1,6 @@
-FROM alpine:3.15
+FROM alpine:3.16.0
 
-ARG PHP_VERS=7.4.29-r0
-
-RUN apk add --no-cache \
-        gettext=0.21-r0 \
-        curl=7.80.0-r1 \
-        nginx=1.20.2-r1 \
-        php7=$PHP_VERS \
-        php7-fpm=$PHP_VERS \
-        php7-opcache=$PHP_VERS \
-        php7-pdo=$PHP_VERS \
-        php7-pdo_sqlite=$PHP_VERS \
-        php7-openssl=$PHP_VERS && \
+RUN apk add --no-cache gettext curl nginx php8 php8-fpm php8-opcache php8-pdo php8-pdo_sqlite php8-openssl && \
     mkdir /var/www/html
 
 COPY . /var/www/html
@@ -19,7 +8,7 @@ COPY . /var/www/html
 RUN chmod -R 775 /var/www/html && \
     chown -R nginx:nginx /var/www/html
 
-COPY docker/php-fpm.conf /etc/php7/php-fpm.conf
+COPY docker/php-fpm.conf /etc/php8/php-fpm.conf
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/entrypoint.sh /entrypoint.sh
 
