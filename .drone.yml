@@ -40,6 +40,20 @@ steps:
         - latest
         - 2.0.2
 
+  - name: pushrm-dockerhub
+    image: chko/docker-pushrm
+    environment:
+      DOCKER_USER:
+        from_secret: docker_username
+      DOCKER_PASS:
+        from_secret: docker_password
+      PUSHRM_FILE: README.md
+      PUSHRM_SHORT: A one-time encrypted zero-knowledge password/secret sharing application
+      PUSHRM_TARGET: modem7/flashpaper
+    when:
+      status:
+        - success
+
   - name: slack
     image: themaz/drone-slack
     settings:
